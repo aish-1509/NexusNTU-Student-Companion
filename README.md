@@ -8,6 +8,7 @@
   [![Express](https://img.shields.io/badge/Express-4-111827?logo=express&logoColor=white)](https://expressjs.com/)
   [![MongoDB](https://img.shields.io/badge/MongoDB-8-47A248?logo=mongodb&logoColor=white)](https://www.mongodb.com/)
   [![Gemini](https://img.shields.io/badge/Google_Gemini-AI_Assistant-8E75B2?logo=googlegemini&logoColor=white)](https://ai.google.dev/)
+  [![CI](https://github.com/aish-1509/NexusNTU/actions/workflows/ci.yml/badge.svg)](https://github.com/aish-1509/NexusNTU/actions/workflows/ci.yml)
   [![Status](https://img.shields.io/badge/status-academic_prototype-f59e0b)](#project-status)
 
   **One digital home for navigating, understanding, and settling into life at NTU.**
