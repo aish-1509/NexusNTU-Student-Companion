@@ -1,5 +1,5 @@
 // PhonenumOTP.jsx
-import React, { useState, useContext } from "react";
+import { useState, useContext } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { HiArrowRight, HiPhone } from "react-icons/hi2";
 import PhoneInput from "react-phone-input-2";
@@ -8,14 +8,13 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import Logo from "../assets/crbologo.png";
 import { UserContext } from "../contexts/UserContext";
-import { 
-  GeometricBackground, 
-  GlassCard, 
-  PageContainer, 
-  Button, 
+import {
+  GeometricBackground,
+  GlassCard,
+  PageContainer,
+  Button,
   PageHeader,
-  THEMES,
-  customAnimations 
+  customAnimations
 } from '../components/SharedComponents';
 
 /**
@@ -50,7 +49,7 @@ const PhonenumOTP = ({ theme = 'warmOrange' }) => {
       if (comingFrom === "login") {
         // Skip OTP: issue token now and go to dashboard
         const { data } = await axios.post(
-          "http://localhost:3000/api/v1/giveToken",
+          "/api/v1/giveToken",
           { username }
         );
         updateToken(data.token);
@@ -59,7 +58,7 @@ const PhonenumOTP = ({ theme = 'warmOrange' }) => {
       }
 
       // Forgot password flow (no state passed): ensure phone exists, then go to security questions
-      await axios.post("http://localhost:3000/api/v1/forgotpasswordphauth", {
+      await axios.post("/api/v1/forgotpasswordphauth", {
         ph,
       });
       navigate("/securityq", { state: { ph } });
@@ -88,10 +87,10 @@ const PhonenumOTP = ({ theme = 'warmOrange' }) => {
   return (
     <div className="min-h-screen flex items-center justify-center p-4 sm:p-6">
       <GeometricBackground theme={theme} />
-      
+
       <PageContainer maxWidth="max-w-[560px] md:max-w-[640px] xl:max-w-[720px]">
         <GlassCard theme={theme}>
-          <PageHeader 
+          <PageHeader
             logo={Logo}
             title={title}
             subtitle={subtitle}
@@ -102,8 +101,8 @@ const PhonenumOTP = ({ theme = 'warmOrange' }) => {
             {/* Phone Input */}
             {comingFrom !== "login" && (
               <div className="space-y-2">
-                <label 
-                  htmlFor="phone" 
+                <label
+                  htmlFor="phone"
                   className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
                 >
                   <div className="flex items-center gap-2">
@@ -159,21 +158,21 @@ const PhonenumOTP = ({ theme = 'warmOrange' }) => {
       {/* Custom styles for phone input */}
       <style>{`
         ${customAnimations}
-        
+
         .phone-input-wrapper .react-tel-input .form-control {
           width: 100% !important;
           height: auto !important;
           font-size: 1rem !important;
         }
-        
+
         .phone-input-wrapper .react-tel-input .flag-dropdown {
           border-right: none !important;
         }
-        
+
         .dark .phone-input-wrapper .react-tel-input .form-control {
           color: rgb(241 245 249) !important;
         }
-        
+
         .dark .phone-input-wrapper .react-tel-input .selected-flag:hover,
         .dark .phone-input-wrapper .react-tel-input .selected-flag:focus {
           background-color: rgb(51 65 85 / 0.8) !important;

@@ -53,7 +53,7 @@ export const GeometricBackground = ({ theme = 'warmOrange' }) => (
 
 // Glassmorphism Card Container
 export const GlassCard = ({ children, className = '', theme = 'warmOrange', maxWidth = 'max-w-[560px] md:max-w-[640px] xl:max-w-[720px]' }) => (
-  <div className={`relative backdrop-blur-2xl ${THEMES[theme].card} rounded-2xl shadow-2xl ring-1 ring-black/5 dark:ring-white/10 p-6 sm:p-8 ${className}`}>
+  <div className={`relative w-full ${maxWidth} backdrop-blur-2xl ${THEMES[theme].card} rounded-2xl shadow-2xl ring-1 ring-black/5 dark:ring-white/10 p-6 sm:p-8 ${className}`}>
     {children}
   </div>
 );
@@ -68,7 +68,7 @@ export const PageContainer = ({ children, className = '', maxWidth = 'max-w-[560
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4 sm:p-6">
-      <div 
+      <div
         className={`
           w-full mx-auto ${maxWidth} transition-all duration-1000 ease-out
           ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
@@ -82,24 +82,24 @@ export const PageContainer = ({ children, className = '', maxWidth = 'max-w-[560
 };
 
 // Primary Button
-export const Button = ({ 
-  children, 
-  type = "button", 
-  variant = "primary", 
+export const Button = ({
+  children,
+  type = "button",
+  variant = "primary",
   icon: Icon = HiArrowRight,
   loading = false,
   theme = 'warmOrange',
   className = "",
-  ...props 
+  ...props
 }) => {
   const baseStyles = "group relative inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-base transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed active:scale-[0.98]";
-  
+
   const variants = {
     primary: `${THEMES[theme].primary} text-white shadow-lg hover:shadow-xl focus:ring-orange-500/50 dark:focus:ring-orange-400/50`,
     secondary: "bg-white/20 dark:bg-slate-800/50 backdrop-blur-sm text-gray-700 dark:text-gray-200 border-2 border-gray-200 dark:border-slate-700 hover:bg-white/30 dark:hover:bg-slate-800/70 focus:ring-gray-500/20",
     ghost: `${THEMES[theme].accent} hover:bg-white/10 dark:hover:bg-slate-800/30 focus:ring-orange-500/20`
   };
-  
+
   return (
     <button
       type={type}
@@ -131,20 +131,20 @@ export const PageHeader = ({ logo, title, subtitle, theme = 'warmOrange' }) => (
     {logo && (
       <div className="relative">
         <div className="absolute inset-0 bg-gradient-to-r from-amber-400 to-orange-500 rounded-full blur-2xl opacity-20 dark:opacity-30 animate-pulse" />
-        <img 
-          src={logo} 
-          alt="Logo" 
+        <img
+          src={logo}
+          alt="Logo"
           className="relative w-24 sm:w-32 h-auto drop-shadow-xl transition-transform hover:scale-105 duration-300"
         />
       </div>
     )}
-    
+
     <div className="space-y-2">
       <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-slate-900 to-slate-700 dark:from-white dark:to-slate-300 bg-clip-text text-transparent">
         {title}
       </h1>
       {subtitle && (
-        <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">
+        <p className={`text-sm sm:text-base ${THEMES[theme].accent}`}>
           {subtitle}
         </p>
       )}
@@ -158,16 +158,16 @@ export const customAnimations = `
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
   }
-  
+
   @keyframes spin-reverse {
     from { transform: rotate(360deg); }
     to { transform: rotate(0deg); }
   }
-  
+
   .animate-spin-slow {
     animation: spin-slow 30s linear infinite;
   }
-  
+
   .animate-spin-reverse {
     animation: spin-reverse 40s linear infinite;
   }

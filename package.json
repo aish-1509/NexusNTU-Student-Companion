@@ -1,44 +1,17 @@
 {
-  "name": "simple-login-and-register-with-json-web-token",
+  "name": "nexusntu",
   "version": "1.0.0",
-  "description": "",
-  "main": "app.js",
+  "private": true,
+  "description": "An AI-enabled digital companion for international students at NTU.",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "install:all": "npm ci --prefix server && npm ci --prefix client",
+    "dev:server": "npm run dev --prefix server",
+    "dev:client": "npm run dev --prefix client",
+    "build": "npm run build --prefix client",
+    "lint": "npm run lint --prefix client",
+    "check": "npm run build && npm run lint"
   },
-  "author": "Kuzma02",
-  "license": "ISC",
-  "dependencies": {
-    "@emotion/react": "^11.11.3",
-    "@emotion/styled": "^11.11.0",
-    "@google/generative-ai": "^0.2.1",
-    "@mui/icons-material": "^5.15.12",
-    "@mui/material": "^5.15.12",
-    "@mui/styles": "^5.15.12",
-    "@react-google-maps/api": "^2.19.3",
-    "aws-sdk": "^2.1573.0",
-    "bcryptjs": "^2.4.3",
-    "cors": "^2.8.5",
-    "debug": "^4.3.4",
-    "dotenv": "^16.6.1",
-    "express": "^4.18.2",
-    "express-async-errors": "^3.1.1",
-    "firebase": "^9.15.0",
-    "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.18.3",
-    "multer": "^1.4.5-lts.1",
-    "otp-input-react": "^0.3.0",
-    "react-hot-toast": "^2.4.0",
-    "react-infinite-scroll-component": "^6.1.0",
-    "react-phone-input-2": "^2.15.1",
-    "react-slick": "^0.30.2",
-    "react-top-loading-bar": "^2.1.0",
-    "redis": "^4.6.13",
-    "slick-carousel": "^1.8.1",
-    "use-places-autocomplete": "^4.0.1"
-  },
-  "devDependencies": {
-    "nodemon": "^3.0.2",
-    "tailwindcss": "^3.2.4"
+  "engines": {
+    "node": ">=22.12"
   }
 }

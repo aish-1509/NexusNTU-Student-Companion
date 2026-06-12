@@ -48,7 +48,7 @@ body, html {
 }
 
 .OTP-logo{
-  max-width: 100%;  
+  max-width: 100%;
   margin-bottom: 2rem;
 }
 
@@ -56,7 +56,7 @@ body, html {
   font-size: 22px;
   font-weight: bold;
   padding-bottom: 15px;
-} 
+}
 
 .otp{
   display: block;

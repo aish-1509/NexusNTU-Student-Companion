@@ -1,6 +1,6 @@
 // UserContext.js
 
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import { createContext, useState, useContext, useEffect, useCallback } from 'react';
 import axios from 'axios';
 
 /**
@@ -22,58 +22,49 @@ export const UserProvider = ({ children }) => {
   const [error, setError] = useState('');
   const [token,setToken]=useState( localStorage.getItem('auth'));
 
-      /**
-   * useEffect hook to check authentication status and fetch user profile if token is present.
-   */
-  useEffect(() => {
-    if(token!="null")
-    setIsLoggedIn(true);
-  
-    if (token === "null") {
-      
-      console.log("Token is null, not fetching user profile.");
-      setUserProfile(null);
-      return; 
-    }
-    console.log(typeof(token));
-    console.log(token===null);
-    console.log(token);
-    fetchUserProfile();
-  }, [token]);
-
-      /**
+  /**
    * Fetches the user's profile from the server using the stored authentication token.
    * Sets the user profile on successful fetch or sets an error on failure.
    */
-  const fetchUserProfile = () => {
-    console.log("I am gna fetch profile");
-    console.log(token)
-    if (token === "null") {
-      console.log("i did not find anyth");
+  const fetchUserProfile = useCallback(async () => {
+    if (!token || token === "null") {
       setError('No token found. User is probably not logged in.');
       return;
     }
 
-    axios.get('http://localhost:3000/api/v1/profile', {
-      headers: { 'Authorization': `Bearer ${token}` }
-    })
-    .then(response => {
+    try {
+      const response = await axios.get('/api/v1/profile', {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
       setUserProfile(response.data);
-    })
-    .catch(error => {
+      setError('');
+    } catch (error) {
       setError(`Error fetching user profile: ${error}`);
-    });
-  };
+    }
+  }, [token]);
+
+  /**
+   * Checks authentication status and fetches the profile when a token is present.
+   */
+  useEffect(() => {
+    const hasToken = Boolean(token && token !== "null");
+    setIsLoggedIn(hasToken);
+
+    if (!hasToken) {
+      setUserProfile(null);
+      return;
+    }
+
+    fetchUserProfile();
+  }, [token, fetchUserProfile]);
 
       /**
    * Updates the authentication token stored in local storage and state.
    * @param {string} newToken - The new token to update.
    */
   const updateToken = (newToken) => {
-    console.log("mason"+typeof(newToken));
     localStorage.setItem('auth', newToken);
-    console.log("wtr"+typeof(localStorage.getItem('auth')));
-    setToken(localStorage.getItem('auth')); 
+    setToken(localStorage.getItem('auth'));
   };
 
   return (

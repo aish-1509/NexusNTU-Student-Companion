@@ -1,8 +1,8 @@
 //Login.jsx
-import React, { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import Logo from "../assets/crbologo.png";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
-import { HiArrowRight, HiCheckCircle, HiXCircle } from "react-icons/hi2";
+import { HiArrowRight, HiXCircle } from "react-icons/hi2";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { UserContext } from '../contexts/UserContext';
@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 /**
  * Modern Login component with glassmorphism design, floating labels,
  * password strength meter, and full accessibility support.
- * 
+ *
  * Features:
  * - Warm orange gradient background (Variant A)
  * - Glassmorphism card with backdrop blur
@@ -63,17 +63,17 @@ const GeometricBackground = ({ theme = 'warmOrange' }) => (
 );
 
 // Floating Label Input Component
-const FloatingInput = ({ 
-  id, 
-  name, 
-  type = "text", 
-  label, 
-  value, 
-  onChange, 
+const FloatingInput = ({
+  id,
+  name,
+  type = "text",
+  label,
+  value,
+  onChange,
   required = false,
   error = "",
   rightIcon = null,
-  ...props 
+  ...props
 }) => {
   const [isFocused, setIsFocused] = useState(false);
   const hasValue = value && value.length > 0;
@@ -94,8 +94,8 @@ const FloatingInput = ({
           border-2 rounded-xl
           transition-all duration-200
           focus:outline-none focus:ring-4
-          ${error 
-            ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20' 
+          ${error
+            ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20'
             : 'border-gray-200 dark:border-slate-700 focus:border-orange-500 dark:focus:border-orange-400 focus:ring-orange-500/20'
           }
           ${rightIcon ? 'pr-12' : 'pr-4'}
@@ -106,26 +106,26 @@ const FloatingInput = ({
         aria-describedby={error ? `${id}-error` : undefined}
         {...props}
       />
-      
+
       <label
         htmlFor={id}
         className={`
           absolute left-4 transition-all duration-200 pointer-events-none
-          ${isFocused || hasValue 
-            ? 'top-2 text-xs font-medium text-gray-600 dark:text-gray-400' 
+          ${isFocused || hasValue
+            ? 'top-2 text-xs font-medium text-gray-600 dark:text-gray-400'
             : 'top-4 text-base text-gray-500 dark:text-gray-400'
           }
         `}
       >
         {label} {required && <span className="text-red-500">*</span>}
       </label>
-      
+
       {rightIcon && (
         <div className="absolute right-4 top-1/2 -translate-y-1/2">
           {rightIcon}
         </div>
       )}
-      
+
       {error && (
         <p id={`${id}-error`} className="mt-1.5 text-sm text-red-600 dark:text-red-400 flex items-center gap-1" role="alert">
           <HiXCircle className="w-4 h-4 flex-shrink-0" />
@@ -140,14 +140,14 @@ const FloatingInput = ({
 const PasswordStrengthMeter = ({ password }) => {
   const calculateStrength = () => {
     if (!password) return { level: 0, label: '', color: '' };
-    
+
     let strength = 0;
     if (password.length >= 8) strength++;
     if (password.length >= 12) strength++;
     if (/[a-z]/.test(password) && /[A-Z]/.test(password)) strength++;
     if (/\d/.test(password)) strength++;
     if (/[^a-zA-Z\d]/.test(password)) strength++;
-    
+
     const levels = [
       { level: 0, label: '', color: '' },
       { level: 1, label: 'Weak', color: 'bg-red-500' },
@@ -156,14 +156,14 @@ const PasswordStrengthMeter = ({ password }) => {
       { level: 4, label: 'Strong', color: 'bg-green-500' },
       { level: 5, label: 'Very Strong', color: 'bg-emerald-600' }
     ];
-    
+
     return levels[strength];
   };
-  
+
   const strength = calculateStrength();
-  
+
   if (!password) return null;
-  
+
   return (
     <div className="mt-2 space-y-1.5">
       <div className="flex gap-1">
@@ -186,23 +186,23 @@ const PasswordStrengthMeter = ({ password }) => {
 };
 
 // Primary Button Component
-const Button = ({ 
-  children, 
-  type = "button", 
-  variant = "primary", 
+const Button = ({
+  children,
+  type = "button",
+  variant = "primary",
   icon: Icon,
   loading = false,
   theme = 'warmOrange',
   className = "",
-  ...props 
+  ...props
 }) => {
   const baseStyles = "group relative inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-base transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed active:scale-[0.98]";
-  
+
   const variants = {
     primary: `${THEMES[theme].primary} text-white shadow-lg hover:shadow-xl focus:ring-orange-500/50 dark:focus:ring-orange-400/50`,
     secondary: "bg-white/20 dark:bg-slate-800/50 backdrop-blur-sm text-gray-700 dark:text-gray-200 border-2 border-gray-200 dark:border-slate-700 hover:bg-white/30 dark:hover:bg-slate-800/70 focus:ring-gray-500/20"
   };
-  
+
   return (
     <button
       type={type}
@@ -241,7 +241,7 @@ const Login = ({ theme = 'warmOrange' }) => {
   const [mounted, setMounted] = useState(false);
   const navigate = useNavigate();
 
-  React.useEffect(() => {
+  useEffect(() => {
     setMounted(true);
   }, []);
 
@@ -267,13 +267,13 @@ const Login = ({ theme = 'warmOrange' }) => {
     setIsLoading(true);
 
     const formData = { username, password };
-    
+
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/v1/login",
+        "/api/v1/login",
         formData
       );
-      updateToken(response.data.token); 
+      updateToken(response.data.token);
       toast.success("Login successful. Please verify your phone number to complete the sign-in process");
       navigate("/dashboard", { state: { username: username, comingFrom: "login" } });
     } catch (err) {
@@ -288,9 +288,9 @@ const Login = ({ theme = 'warmOrange' }) => {
   return (
     <div className="min-h-screen flex items-center justify-center p-4 sm:p-6">
       <GeometricBackground theme={theme} />
-      
+
       {/* Main Card with fade-in animation */}
-      <div 
+      <div
         className={`
           w-full mx-auto max-w-[560px] md:max-w-[640px] xl:max-w-[720px] transition-all duration-1000 ease-out
           ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
@@ -298,19 +298,19 @@ const Login = ({ theme = 'warmOrange' }) => {
       >
         {/* Glassmorphism Card */}
         <div className="relative backdrop-blur-2xl bg-white/90 dark:bg-slate-900/85 rounded-2xl shadow-2xl ring-1 ring-black/5 dark:ring-white/10 p-7 sm:p-9 space-y-6">
-          
+
           {/* Header Section */}
           <div className="flex flex-col items-center space-y-4 text-center">
             {/* Logo with glow effect */}
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-r from-amber-400 to-orange-500 rounded-full blur-2xl opacity-20 dark:opacity-30 animate-pulse" />
-              <img 
-                src={Logo} 
-                alt="NexusNTU Logo" 
+              <img
+                src={Logo}
+                alt="NexusNTU Logo"
                 className="relative w-32 h-auto drop-shadow-xl transition-transform hover:scale-105 duration-300"
               />
             </div>
-            
+
             {/* Text Hierarchy */}
             <div className="space-y-2">
               <p className="text-xs font-medium tracking-widest uppercase text-gray-600 dark:text-gray-400">
@@ -368,7 +368,7 @@ const Login = ({ theme = 'warmOrange' }) => {
                   </button>
                 }
               />
-              
+
               {/* Password Strength Meter */}
               <PasswordStrengthMeter password={password} />
             </div>
@@ -388,7 +388,7 @@ const Login = ({ theme = 'warmOrange' }) => {
 
             {/* General Error Message */}
             {errors.general && (
-              <div 
+              <div
                 className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-3 text-sm text-red-700 dark:text-red-400"
                 role="alert"
                 aria-live="polite"
@@ -462,16 +462,16 @@ const Login = ({ theme = 'warmOrange' }) => {
           from { transform: rotate(0deg); }
           to { transform: rotate(360deg); }
         }
-        
+
         @keyframes spin-reverse {
           from { transform: rotate(360deg); }
           to { transform: rotate(0deg); }
         }
-        
+
         .animate-spin-slow {
           animation: spin-slow 30s linear infinite;
         }
-        
+
         .animate-spin-reverse {
           animation: spin-reverse 40s linear infinite;
         }

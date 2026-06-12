@@ -1,11 +1,11 @@
 //ProfilePic.jsx
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useUser } from '../contexts/UserContext';
 import defaultAvatarUrl from "../assets/defaultpfp.png";
 import { useNavigate } from "react-router-dom";
-import logoImage from '../assets/landscapelogo.png'; 
+import logoImage from '../assets/landscapelogo.png';
 
 /**
  * ProfilePic component for uploading and displaying a user's profile picture.
@@ -14,17 +14,15 @@ import logoImage from '../assets/landscapelogo.png';
 function ProfilePic() {
     const navigate = useNavigate();
   const { userProfile } = useUser();
-  const [avatar, setAvatar] = useState(null); 
+  const [avatar, setAvatar] = useState(null);
   const [isDragOver, setDragOver] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
 
 // Fetch user's avatar on component mount or userProfile update
   useEffect(() => {
     const fetchAvatar = async () => {
-      setIsLoading(true); 
       if (userProfile && userProfile._id) {
         try {
-          const response = await axios.post(`http://localhost:3000/api/v1/avatar`, {
+          const response = await axios.post(`/api/v1/avatar`, {
             userId: userProfile._id,
           });
           setAvatar({ url: response.data.url, name: 'User Avatar' });
@@ -33,20 +31,13 @@ function ProfilePic() {
           setAvatar({ url: defaultAvatarUrl, name: 'Default Avatar' });
         }
       }
-      setIsLoading(false); 
-    };
-  
-    fetchAvatar();
-  }, [userProfile]);
-  
-// Handles file upload submission
-  const handleSubmit = (file) => {
-    const encodeImage = (mimetype, arrayBuffer) => {
-      let u8 = new Uint8Array(arrayBuffer);
-      const b64encoded = btoa([].reduce.call(u8, function (p, c) { return p + String.fromCharCode(c); }, ''));
-      return "data:" + mimetype + ";base64," + b64encoded;
     };
 
+    fetchAvatar();
+  }, [userProfile]);
+
+// Handles file upload submission
+  const handleSubmit = (file) => {
     const uploadImage = async () => {
         if (!(userProfile && userProfile._id)) return;
         console.log(userProfile._id + "ty");
@@ -54,13 +45,13 @@ function ProfilePic() {
         data.append('file', file);
         data.append('filename', file.name);
         data.append('userId', userProfile._id);
-        
+
         try {
-          const result = await axios.post("http://localhost:3000/api/v1/upload", data, {
+          const result = await axios.post("/api/v1/upload", data, {
             headers: { 'Content-Type': 'multipart/form-data' }
           });
-          
-          
+
+
           if (result.data && result.data.url) {
             setAvatar({ name: result.data.name, url: result.data.url });
           } else {
@@ -68,11 +59,11 @@ function ProfilePic() {
           }
         } catch (error) {
           console.error("Error uploading image:", error);
-          
+
         }
       };
     uploadImage()}
-      
+
  // Drag over effect
   const handleDragOver = (evt) => {
     evt.stopPropagation();
@@ -95,7 +86,7 @@ function ProfilePic() {
     navigate('/dashboard');
   };
 
- 
+
   const styles = {
 
     profilepicmain: {
@@ -108,21 +99,21 @@ function ProfilePic() {
       boxSizing: 'border-box',
       background: '#faf3e0',
       borderRadius: '20px',
-      boxShadow: '0 16px 16px rgba(0, 0, 0, 0.1)', 
+      boxShadow: '0 16px 16px rgba(0, 0, 0, 0.1)',
       transformStyle: 'preserve-3d',
       transition: 'transform 0.5s ease-in-out',
-      ':hover': { 
+      ':hover': {
         transform: 'scale(1.05)',
       },
     },
-  
-    profilepicRightContainer: { 
+
+    profilepicRightContainer: {
       height: '85vh',
       width: '500px',
-      paddingLeft: '25px', 
-      paddingTop: '25px', 
-      paddingBottom: '25px', 
-      paddingRight: '25px', 
+      paddingLeft: '25px',
+      paddingTop: '25px',
+      paddingBottom: '25px',
+      paddingRight: '25px',
       textAlign: 'center',
       borderRadius: '15px',
       boxShadow: '1px 0px 9px 0px rgba(0,0,0,0.15)',
@@ -146,14 +137,14 @@ function ProfilePic() {
       flexDirection: 'column',
       justifyContent: 'center',
       alignItems: 'center',
-      textAlign: 'center',   
-      marginTop: '75px', 
-      backgroundColor: '#cc0000', 
+      textAlign: 'center',
+      marginTop: '75px',
+      backgroundColor: '#cc0000',
       borderRadius: '3px',
       padding: '50px 0',
       color: 'white',
       ...(isDragOver && {
-        backgroundColor: '#a00000', 
+        backgroundColor: '#a00000',
       }),
     },
 
@@ -161,13 +152,13 @@ function ProfilePic() {
       display: 'flex',
       flexWrap: 'wrap',
       justifyContent: 'center',
-      
+
     },
 
     img: {
-        width: '150px', 
+        width: '150px',
         height: '150px',
-        borderRadius: '50%', 
+        borderRadius: '50%',
       },
     input: {
       overflow: 'hidden',
@@ -199,10 +190,10 @@ function ProfilePic() {
           <h3>or drag and drop them here</h3>
         </section>
 
-          <button onClick={handleFinish} style={{ marginTop: '30px', backgroundColor: '#1a1a2e',color: '#ffffff', height: '30px', width: '80%', borderRadius: '15px' }}>Finish</button> 
+          <button onClick={handleFinish} style={{ marginTop: '30px', backgroundColor: '#1a1a2e',color: '#ffffff', height: '30px', width: '80%', borderRadius: '15px' }}>Finish</button>
         </section>
 
-        
+
       </div>
     </div>
   );

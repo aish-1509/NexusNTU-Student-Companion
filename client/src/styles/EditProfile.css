@@ -83,10 +83,10 @@ body, html {
   opacity: 0;
 }
 
-.profile-content input[type="text"], 
-.profile-content input[type="password"], 
-.profile-content input[type="tel"], 
-.profile-content select, 
+.profile-content input[type="text"],
+.profile-content input[type="password"],
+.profile-content input[type="tel"],
+.profile-content select,
 .profile-content button {
   width: 100%;
   padding: 10px;
@@ -97,9 +97,9 @@ body, html {
   justify-content: center;
 }
 
-.profile-content input[type="text"], 
-.profile-content input[type="password"], 
-.profile-content input[type="tel"], 
+.profile-content input[type="text"],
+.profile-content input[type="password"],
+.profile-content input[type="tel"],
 .profile-content select {
   border: 1px solid #ced4da;
 }
@@ -116,7 +116,7 @@ body, html {
   background-color: #a00000;
 }
 
-.profile-content .profile-pic-container, 
+.profile-content .profile-pic-container,
 .profile-content .profile-pic-container img,
 .profile-content .fas {
   text-align: center;
