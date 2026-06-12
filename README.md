@@ -1,203 +1,225 @@
-# Cross Border
+<div align="center">
+  <img src="docs/assets/nexusntu-banner.svg" alt="NexusNTU - AI-enabled international student companion" width="100%" />
 
-<img width="1000" alt="Screenshot 2024-04-07 at 2 42 28 AM" src="https://github.com/softwarelab3/2006-SCSD-SimpleOne/assets/115227638/abfbc891-dfb9-4263-acb6-a720c912213c">
+  <br />
+
+  [![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=white)](https://react.dev/)
+  [![Node.js](https://img.shields.io/badge/Node.js-20-339933?logo=nodedotjs&logoColor=white)](https://nodejs.org/)
+  [![Express](https://img.shields.io/badge/Express-4-111827?logo=express&logoColor=white)](https://expressjs.com/)
+  [![MongoDB](https://img.shields.io/badge/MongoDB-8-47A248?logo=mongodb&logoColor=white)](https://www.mongodb.com/)
+  [![Gemini](https://img.shields.io/badge/Google_Gemini-AI_Assistant-8E75B2?logo=googlegemini&logoColor=white)](https://ai.google.dev/)
+  [![Status](https://img.shields.io/badge/status-academic_prototype-f59e0b)](#project-status)
+
+  **One digital home for navigating, understanding, and settling into life at NTU.**
+</div>
 
 ## Overview
 
-Cross Border is a web application developed by Team SimpleOne, aimed at improving the living and working experience of migrant workers in Singapore. By providing access to essential services and information, Cross Border serves as a user-centric platform that navigates users through daily life in Singapore, offering features like a currency exchange calculator, navigation routes, directory of nearby amenities, personalized news feed, and an AI chatbot for assistance.
+NexusNTU is a full-stack student companion designed to reduce the fragmented
+onboarding experience faced by international students at Nanyang Technological
+University. It brings campus navigation, nearby amenities, practical tools,
+personalized information, university links, and an AI guide into one responsive
+experience.
 
-## Features
+The project was delivered by **Team CtrlAltElite** for **SC3040 Advanced
+Software Engineering** at NTU.
 
-User Registration and Profile Management: Allows users to create an account, manage their profile information, and personalize services. <br>
+> **Project leadership:** Aishwarya Anand served as Project Manager and Team
+> Lead for the six-person team, coordinating the work from problem framing and
+> requirements through planning, delivery governance, risk, release, testing,
+> demonstration, and final submission.
 
-Currency Converter: Provides currency exchange information between SGD and the currency of the user's home country.<br>
+[Read the portfolio case study](docs/PROJECT_CASE_STUDY.md) |
+[Explore the project evidence](docs/README.md) |
+[View the final presentation](docs/06-demo/final-presentation.pdf)
 
-Navigation and Amenities Finder: Offers detailed route information via public transport and locates nearby amenities like MRT stations, bus stops, eateries, shops, and hospitals.<br>
+## The Problem
 
-News Viewer: Delivers a personalized news feed to keep users informed about the latest happenings in Singapore or their home country.<br>
+New international students often have to move between disconnected university
+pages, map services, news sources, support channels, and external utilities
+while adapting to a new country and campus. That creates avoidable friction at
+exactly the point when clear, trusted guidance matters most.
 
-AI Chatbot: Answers user queries, providing an interactive and helpful resource for information.<br>
+NexusNTU turns that fragmented journey into a single product surface:
 
-## Tech Stack Used
+| Student need | NexusNTU capability |
+| --- | --- |
+| Understand where to go | Route planning and Google Maps-powered navigation |
+| Find essentials nearby | Search for transport, food, healthcare, shops, and other amenities |
+| Get practical local help | Gemini-powered conversational and image-aware assistant |
+| Manage day-to-day finances | Currency conversion personalized by nationality |
+| Stay informed | Configurable local, world, and home-country news |
+| Reach university systems quickly | Curated NTU academic, support, finance, and career links |
+| Maintain a personal experience | Registration, authentication, profile, avatar, and settings flows |
 
-<img width="547" alt="Screenshot 2024-04-07 at 2 36 05 AM" src="https://github.com/softwarelab3/2006-SCSD-SimpleOne/assets/115227638/2a40b05c-b46c-469e-86a6-a377209c653b">
+## Product Highlights
 
-### Front-end was mainly made using React (version 18.2.0) and Back-end was mainly made using Node.js (version 21.4.0)
+- **AI student guide:** A Streamlit assistant powered by Google Gemini for
+  conversational questions and multimodal image prompts.
+- **Campus discovery:** Navigation and nearby-place exploration using Google
+  Maps and Places.
+- **Personalized dashboard:** A responsive command center for the product's
+  core services.
+- **Identity and profiles:** JWT authentication, password management, profile
+  editing, avatar storage, and phone-based flows.
+- **Faster profile access:** Redis-backed caching over MongoDB profile data.
+- **Operational completeness:** Requirements, backlog, quality, risk, change,
+  release, configuration, and testing artifacts are included as project
+  evidence.
 
-## Directory Structure
-```plaintext
-Lab 4 Deliverables/Source Code/
-├── client/
-│   ├── public/
-│   └── src/
-│       ├── assets/
-│       ├── contexts/
-│       ├── pages/
-│       ├── styles/
-│       ├── utils/
-│       ├── App.jsx
-│       ├── index.css
-│       ├── main.jsx
-│       ├── responsive.css
-│       └── tailwind.config.js
-│   ├── index.html
-│   ├── package-lock.json
-│   ├── package.json
-│   └── vite.config.js
-├── controllers/
-├── db/
-├── middleware/
-├── models/
-├── routes/
-├── app.js
-├── package-lock.json
-├── package.json
-└── README.md
+## Architecture
+
+```mermaid
+flowchart LR
+    U[International student] --> W[React + Vite client]
+    W --> API[Express API]
+    W --> EXT[Maps, News and Currency APIs]
+    W --> AI[Streamlit AI assistant]
+    AI --> GEMINI[Google Gemini]
+    API --> DB[(MongoDB)]
+    API --> CACHE[(Redis)]
+    API --> S3[(AWS S3)]
+    API --> AUTH[JWT authentication]
 ```
 
-## Setup instructions
+| Layer | Technologies | Responsibility |
+| --- | --- | --- |
+| Web client | React, Vite, Tailwind CSS, Axios | Responsive workflows and service integrations |
+| API | Node.js, Express | Authentication, profiles, avatars, and application endpoints |
+| AI assistant | Python, Streamlit, Gemini | Conversational and multimodal support |
+| Data | MongoDB, Mongoose | User and avatar persistence |
+| Performance | Redis | Profile caching and cache invalidation |
+| Storage | AWS S3 | User avatar object storage |
 
-Copy this code block to your IDE terminal
+## Leadership And Delivery
 
+This repository is intentionally more than source code. It shows how the
+product was managed end to end.
+
+**Aishwarya Anand's leadership scope**
+
+- Led a six-person team and chaired recurring planning and delivery reviews.
+- Drove problem definition, feature scope, requirements, use cases, and backlog
+  organization.
+- Coordinated milestone plans, GitHub submissions, demos, and the final
+  presentation.
+- Maintained visibility over quality, risk, change, configuration, release,
+  and testing workstreams.
+- Contributed to product implementation and the final NexusNTU redesign while
+  keeping the complete system integrated.
+
+This was a collaborative team project. The repository credits the team outcome
+without presenting shared work as a solo build.
+
+## Repository Structure
+
+```text
+.
+├── ai-assistant/       # Streamlit + Gemini conversational assistant
+├── client/             # React/Vite web application
+├── server/             # Express API, MongoDB models, Redis, and S3 flows
+├── docs/               # Product, planning, quality, design, test, and demo evidence
+├── SECURITY.md         # Credential and vulnerability guidance
+└── package.json        # Convenient monorepo commands
 ```
-git clone https://github.com/softwarelab3/2006-SCSD-SimpleOne.git SCSDSimpleOneCrossBorder2006
-cd SCSDSimpleOneCrossBorder2006
+
+## Quick Start
+
+### Prerequisites
+
+- Node.js 22.12+
+- Python 3.10+
+- MongoDB
+- Redis
+- API credentials for the integrations you want to exercise
+
+### 1. Install JavaScript dependencies
+
+```bash
+npm run install:all
 ```
-After executing the above code block, you will need to create a few files to hold the API keys for the app to access.
-## You will need to obtain the API keys yourself. The source for each API key has been mentioned in Appendix at the end of this Readme file.
-Follow the steps below to create the files-:
-1. Create a .env file in the "SCSDSimpleOneCrossBorder2006/Lab 4 Deliverables/Source Code" directory. Enter the following in it (replace the empty strings in each line with respective API keys)-: <br>
-   
-   MONGO_URI='' <br>
-   JWT_SECRET='' <br>
-   AWS_ACCESS_KEY_ID="" <br>
-   AWS_SECRET_ACCESS_KEY="" <br>
-   AWS_REGION="" <br>
-   AWS_BUCKET_NAME="" <br>
 
-2. Open the API_KEYS.jsx file in IDE editor. The path to the file is "SCSDSimpleOneCrossBorder2006/Lab 4 Deliverables/Source Code/client/src/pages/API_KEYS.jsx". Replace the empty strings with   
-   respective API keys.
+### 2. Configure local environments
 
-   const NEWS_API_KEY=""; <br>
-   const X_RapidAPI_Key=''; <br>
-   const GOOGLE_MAPS_API_KEY=''; <br>
-
-3. Open the firebase.config.js file in IDE editor. The path to the file is "SCSDSimpleOneCrossBorder2006/Lab 4 Deliverables/Source Code/client/src/pages/firebase.config.js". Complete the firebase 
-   configuration credentials in the section highlighted below.
-
-   const firebaseConfig = { <br>
-   apiKey: "",<br>
-   authDomain: "",<br>
-   projectId: "",<br>
-   storageBucket: "",<br>
-   messagingSenderId: "",<br>
-   appId: "",<br>
-   measurementId: ""<br>
-   };<br>
-
-4. Open the GEMINI_API_KEY.py file in IDE editor. The path to the file is "SCSDSimpleOneCrossBorder2006/Lab 4 Deliverables/Source Code/client/src/pages/Bot/geminichat/GEMINI_API_KEY.py". Replace the    
-   empty string with Gemini API key.
-
-   Gemini_API_KEY=""
-
-After obtaining all the API keys, continue executing the code segments below-:
-
-Ensure that your present working directory is SCSDSimpleOneCrossBorder2006 <br>
-If yes, then run this code-:
-
+```bash
+cp server/.env.example server/.env
+cp client/.env.example client/.env
+cp ai-assistant/.env.example ai-assistant/.env
 ```
-cd "Lab 4 Deliverables"
-cd "Source Code"
-```
-After that, create 3 terminals using Split Terminal command ( we will refer to them henceforth as T1, T2 and T3)
 
-In T1, run this code-:
+Populate the copied files with your own credentials. Never commit populated
+`.env` files.
+
+### 3. Start the API
+
+```bash
+npm run dev:server
 ```
-sudo npm install
+
+The API runs at `http://localhost:3000`. Its health endpoint is
+`http://localhost:3000/health`.
+
+### 4. Start the web client
+
+```bash
+npm run dev:client
 ```
-In T2, run this code-:
-```
-cd client
-sudo npm install
-```
-In T3, run this code-:
-```
-cd client/src/pages/Bot/geminichat
+
+Open `http://localhost:5173`.
+
+### 5. Start the AI assistant
+
+```bash
+cd ai-assistant
+python -m venv .venv
+source .venv/bin/activate
 pip install -r requirements.txt
-streamlit run 1_Gemini_Pro.py
+streamlit run app.py
 ```
-This will immediately launch the Gemini chatbot in your browser. You can close the tab and return to the terminal
 
-Run this below code segment for setting up Redis server in PC terminal (not IDE terminal)
+The dashboard expects the assistant at `http://localhost:8501` by default.
+
+## Configuration
+
+| Area | Variables |
+| --- | --- |
+| Server | `MONGO_URI`, `JWT_SECRET`, `REDIS_URL`, `CLIENT_ORIGIN`, AWS credentials and bucket |
+| Client | News API, RapidAPI, Google Maps, Firebase, AI assistant URL, API proxy target |
+| AI assistant | `GEMINI_API_KEY` |
+
+Browser-side credentials should be restricted by allowed domain, permitted API,
+and quota in the provider console.
+
+## Project Status
+
+NexusNTU is an **academic prototype**, not a production service. It was
+evaluated through planned test cases, coverage work, demonstrations, and a
+final presentation. The repository does not claim production deployment or
+real-user adoption metrics that were not measured.
+
+The included evidence covers:
+
+- system requirements and use cases
+- project plan and product backlog
+- quality and risk management
+- maintainability, change, configuration, and release planning
+- test plan, test cases, and coverage
+- demo and final presentation
+
+## Validation
+
+```bash
+npm run build
+npm run lint
+node --check server/app.js
+python -m compileall ai-assistant
 ```
-brew update
-brew install redis
-brew services start redis
-redis-cli ping
-```
-After running "redis-cli ping" command you will get a PONG response which confirms that the Redis server has successfully started.
 
-Back to T1, run this code-:
-```
-sudo node app.js
-```
-This command may give some errors of some node modules not getting located. In such a scenario, simply delete the node_modules directory in the Source Code directory and rerun this command-:
+## Attribution
 
-```
-sudo npm install
-sudo node app.js
-```
-The command can be considered to be successful once you get this response in T1-:
-```plaintext
-Server is listening on port 3000
-```
-(You can ignore any other warnings in T1 that may come along with this response)
+Prepared by **Team CtrlAltElite** at Nanyang Technological University for
+**SC3040 Advanced Software Engineering**. Aishwarya Anand was the team's
+Project Manager and Team Lead.
 
-Then in T2, run this code-:
-```
-sudo npm run dev
-```
-The command can be considered to be successful once you get this response in T2-:
-
-```plaintext
-> react-app@0.0.0 dev<br>
-> vite
-
-
-  VITE v5.2.4  ready in 339 ms
-
-  ➜  Local:   http://localhost:5173/ <br>
-  ➜  Network: use --host to expose<br>
-  ➜  press h + enter to show help<br>
- ```
-  
-(You can ignore any other warnings in T2 that may come along with this response)
-
-### Next, copy this URL "http://localhost:5173/" in your browser address bar and the App (hosted on localhost) will be successfully running with the Landing page visible
-
-## Appendix
-API Documentations and Source of API keys/Configuration credentials-:
-
-Mongodb-: https://www.mongodb.com/cloud/atlas/register?utm_source=google&utm_campaign=search_gs_pl_evergreen_atlas_general_prosp-brand_gic-null_apac-sg_ps-all_desktop_eng_lead&utm_term=mongo%20database&utm_medium=cpc_paid_search&utm_ad=p&utm_ad_campaign_id=7854364247&adgroup=81978310976&cq_cmp=7854364247&gad_source=1&gclid=Cj0KCQjw5cOwBhCiARIsAJ5njubc1O2i4Kgp3TEFhi7aDbnvPdH22XjA5FeL6UVEwgTItIjvJRji1zQaAksMEALw_wcB
-
-AWS S3-: https://aws.amazon.com/pm/serv-s3/?gclid=Cj0KCQjw5cOwBhCiARIsAJ5njubaxT1o6P0QCLALESeQJ3ACpZIkDEHiF2u-OfBIxfUqgMQyenVFeYkaArYnEALw_wcB&trk=55ffcfa3-95d3-4418-9a79-62a64040b867&sc_channel=ps&ef_id=Cj0KCQjw5cOwBhCiARIsAJ5njubaxT1o6P0QCLALESeQJ3ACpZIkDEHiF2u-OfBIxfUqgMQyenVFeYkaArYnEALw_wcB:G:s&s_kwcid=AL!4422!3!536452732958!e!!g!!aws%20s3!11543056249!112002966709
-
-Firebase API-: https://firebase.google.com/
-
-Google Places API-: https://developers.google.com/maps/documentation/places/web-service/overview
-
-Gemini API-: https://ai.google.dev/?gad_source=1&gclid=Cj0KCQjw5cOwBhCiARIsAJ5njuboxAVXySbu3orKNUolbT1A7EUjHwLbAZStb3QeF78IeOePkmyYpvwaAkcZEALw_wcB
-
-News API-: https://newsapi.org/
-
-Currency-converter API-: https://rapidapi.com/airaudoeduardo/api/currency-converter241
-
-## Development Team
-
-Aishwarya Anand <br>
-Banerjee Mohor <br>
-Chan Jie Ying Jolene <br>
-Chen Guan Zong Aaron <br>
-Poonawala Mustafa Jabir <br>
-
-### Prepared by Team SimpleOne at Nanyang Technological University for course SC2006 Software Engineering
+The repository is public as a portfolio and educational artifact. No
+open-source license is granted.

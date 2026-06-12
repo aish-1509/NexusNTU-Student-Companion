@@ -1,25 +1,23 @@
 //Dashboard.jsx
-import React, { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import { useUser } from '../contexts/UserContext';
-import { 
-  HiCurrencyDollar, 
-  HiMapPin, 
-  HiBuildingStorefront, 
-  HiNewspaper, 
-  HiChatBubbleBottomCenter, 
-  HiLink, 
-  HiCog6Tooth,
-  HiUser
+import {
+  HiCurrencyDollar,
+  HiMapPin,
+  HiBuildingStorefront,
+  HiNewspaper,
+  HiChatBubbleBottomCenter,
+  HiLink,
+  HiCog6Tooth
 } from 'react-icons/hi2';
-import Logo from '../assets/landscapelogo.png'; 
+import Logo from '../assets/landscapelogo.png';
 import defaultAvatarUrl from "../assets/defaultpfp.png";
-import { 
-  GeometricBackground, 
+import {
+  GeometricBackground,
   customAnimations,
-  THEMES 
 } from '../components/SharedComponents';
 
 /**
@@ -29,18 +27,19 @@ import {
 
 const Dashboard = ({ theme = 'warmOrange' }) => {
   const { userProfile } = useUser();
-  const [avatar, setAvatar] = useState({ url: defaultAvatarUrl, name: 'Default Avatar' }); 
-  const [isLoading, setIsLoading] = useState(false); 
+  const [avatar, setAvatar] = useState({ url: defaultAvatarUrl, name: 'Default Avatar' });
   const [token] = useState(localStorage.getItem("auth") || "");
   const navigate = useNavigate();
+  const aiAssistantUrl = import.meta.env.VITE_AI_ASSISTANT_URL || "http://localhost:8501";
 
   // Fetch user avatar
-  const fetchAvatar = async () => {
-    setIsLoading(true); 
-    const userProfileId = userProfile._id; 
+  const fetchAvatar = useCallback(async () => {
+    if (!userProfile) return;
+
+    const userProfileId = userProfile._id;
     if (userProfileId) {
       try {
-        const response = await axios.post(`http://localhost:3000/api/v1/avatar`, {
+        const response = await axios.post(`/api/v1/avatar`, {
           userId: userProfileId,
         });
         setAvatar({ url: response.data.url, name: 'User Avatar' });
@@ -49,13 +48,11 @@ const Dashboard = ({ theme = 'warmOrange' }) => {
         setAvatar({ url: defaultAvatarUrl, name: 'Default Avatar' });
       }
     }
-    setIsLoading(false); 
-  };
+  }, [userProfile]);
 
   useEffect(() => {
-    if (!userProfile) return;
     fetchAvatar();
-  }, [userProfile]);
+  }, [fetchAvatar]);
 
   // Redirect to login if not authenticated
   useEffect(() => {
@@ -98,7 +95,7 @@ const Dashboard = ({ theme = 'warmOrange' }) => {
     {
       icon: HiChatBubbleBottomCenter,
       label: "ChatBot",
-      path: "http://localhost:8501/",
+      path: aiAssistantUrl,
       external: true,
       color: "from-indigo-500 to-purple-500",
       hoverColor: "hover:from-indigo-600 hover:to-purple-600"
@@ -130,7 +127,7 @@ const Dashboard = ({ theme = 'warmOrange' }) => {
   return (
     <div className="min-h-screen flex flex-col p-4 sm:p-6 lg:p-8">
       <GeometricBackground theme={theme} />
-      
+
       {/* Dashboard Container */}
       <div className="max-w-7xl w-full mx-auto relative z-10 flex flex-col flex-1">
         {/* Header */}
@@ -138,9 +135,9 @@ const Dashboard = ({ theme = 'warmOrange' }) => {
           <div className="flex items-center justify-between">
             {/* Logo */}
             <div className="flex items-center gap-3">
-              <img 
-                src={Logo} 
-                alt="NexusNTU Logo" 
+              <img
+                src={Logo}
+                alt="NexusNTU Logo"
                 className="h-10 sm:h-12 w-auto object-contain"
               />
               <div className="hidden sm:block">
@@ -160,8 +157,8 @@ const Dashboard = ({ theme = 'warmOrange' }) => {
               aria-label="View profile"
             >
               <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full overflow-hidden border-3 border-white dark:border-slate-700 shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:border-orange-500 dark:group-hover:border-orange-400">
-                <img 
-                  src={avatar.url} 
+                <img
+                  src={avatar.url}
                   alt={avatar.name}
                   className="w-full h-full object-cover"
                 />
@@ -193,7 +190,7 @@ const Dashboard = ({ theme = 'warmOrange' }) => {
               >
                 {/* Gradient Background */}
                 <div className={`absolute inset-0 bg-gradient-to-br ${feature.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300`} />
-                
+
                 {/* Icon */}
                 <div className={`relative mb-4 sm:mb-6 w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br ${feature.color} flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300`}>
                   <feature.icon className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
@@ -223,7 +220,7 @@ const Dashboard = ({ theme = 'warmOrange' }) => {
 
       <style>{`
         ${customAnimations}
-        
+
         .glass-card {
           background: linear-gradient(
             135deg,
@@ -231,7 +228,7 @@ const Dashboard = ({ theme = 'warmOrange' }) => {
             rgba(255, 255, 255, 0.2)
           );
         }
-        
+
         .dark .glass-card {
           background: linear-gradient(
             135deg,

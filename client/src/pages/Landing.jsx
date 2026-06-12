@@ -1,13 +1,13 @@
 //Landing.jsx
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { HiArrowRight } from 'react-icons/hi2';
 import logoImage from '../assets/crbologo.png';
 
 /**
- * Modern Landing page for NexusNTU with glassmorphism design, 
+ * Modern Landing page for NexusNTU with glassmorphism design,
  * accessibility features, and responsive layout.
- * 
+ *
  * Features:
  * - Mobile-first responsive design (390×844 → desktop)
  * - Glassmorphism card with backdrop blur
@@ -30,29 +30,29 @@ const GeometricBackground = () => (
         <path fill="rgba(255,255,255,0.2)" d="M39.5,-65.5C51.4,-58.5,61.5,-48.3,68.4,-36.2C75.3,-24.1,79,-10.1,78.8,4C78.6,18.1,74.5,32.3,66.8,44.3C59.1,56.3,47.8,66.1,34.9,71.8C22,77.5,7.5,79.1,-6.5,78.1C-20.5,77.1,-34,73.5,-46.3,66.8C-58.6,60.1,-69.7,50.3,-76.5,38.1C-83.3,25.9,-85.8,11.3,-84.2,-2.8C-82.6,-16.9,-76.9,-30.5,-68.5,-42.3C-60.1,-54.1,-49,-64.1,-36.3,-70.6C-23.6,-77.1,-9.4,-80.1,3.2,-85.3C15.8,-90.5,27.6,-72.5,39.5,-65.5Z" transform="translate(100 100)" />
       </svg>
     </div>
-    
+
     {/* Gradient overlay */}
     <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent dark:from-black/40" />
   </div>
 );
 
 // Reusable Button component
-const Button = ({ 
-  children, 
-  variant = 'primary', 
-  icon: Icon, 
-  className = '', 
-  ...props 
+const Button = ({
+  children,
+  variant = 'primary',
+  icon: Icon,
+  className = '',
+  ...props
 }) => {
   const baseStyles = "group relative inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl font-semibold text-base transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed active:scale-[0.98]";
-  
+
   const variants = {
     primary: "bg-slate-900 text-white hover:bg-slate-800 hover:shadow-2xl hover:shadow-slate-900/50 focus:ring-slate-900/50 dark:bg-white dark:text-slate-900 dark:hover:bg-gray-100 dark:focus:ring-white/50",
     secondary: "bg-white/10 text-slate-900 backdrop-blur-sm border-2 border-white/20 hover:bg-white/20 hover:border-white/30 focus:ring-white/50 dark:text-white dark:hover:bg-white/20"
   };
-  
+
   return (
-    <button 
+    <button
       className={`${baseStyles} ${variants[variant]} ${className}`}
       {...props}
     >
@@ -73,9 +73,9 @@ const Landing = () => {
   return (
     <div className="min-h-screen flex items-center justify-center p-4 sm:p-6 lg:p-8">
       <GeometricBackground />
-      
+
       {/* Main content card with fade-in animation */}
-      <div 
+      <div
         className={`
           w-full max-w-md transition-all duration-1000 ease-out
           ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
@@ -83,35 +83,35 @@ const Landing = () => {
       >
         {/* Glassmorphism card */}
         <div className="relative backdrop-blur-2xl bg-white/90 dark:bg-slate-900/80 rounded-3xl shadow-2xl border border-white/20 dark:border-white/10 p-8 sm:p-10 lg:p-12 space-y-8">
-          
+
           {/* Logo section */}
           <div className="flex flex-col items-center space-y-6">
             <div className="relative">
               {/* Decorative glow effect */}
               <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-pink-500 rounded-full blur-3xl opacity-20 dark:opacity-30 animate-pulse" />
-              
-              <img 
-                src={logoImage} 
-                alt="NexusNTU Logo" 
+
+              <img
+                src={logoImage}
+                alt="NexusNTU Logo"
                 className="relative w-40 sm:w-48 h-auto drop-shadow-2xl transition-transform hover:scale-105 duration-300"
               />
             </div>
-            
+
             {/* Text content with proper hierarchy */}
             <div className="text-center space-y-3">
-              <p 
+              <p
                 className="text-xs sm:text-sm font-medium tracking-widest uppercase text-slate-600 dark:text-slate-400"
                 aria-label="Welcome message"
               >
                 Welcome to
               </p>
-              
+
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-slate-900 to-slate-700 dark:from-white dark:to-slate-300 bg-clip-text text-transparent leading-tight">
                 NexusNTU
               </h1>
-              
+
               <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-xs mx-auto text-balance leading-relaxed">
-                Your gateway to seamless cross-border experiences
+                Your all-in-one companion for navigating student life at NTU
               </p>
             </div>
           </div>
@@ -119,8 +119,8 @@ const Landing = () => {
           {/* CTA buttons */}
           <div className="space-y-4">
             {/* Primary CTA */}
-            <Link 
-              to="/login" 
+            <Link
+              to="/login"
               className="block"
               aria-label="Get started with NexusNTU"
             >
@@ -131,12 +131,12 @@ const Landing = () => {
 
             {/* Secondary action */}
             <div className="text-center">
-              <Link 
-                to="/login" 
+              <Link
+                to="/login"
                 className="inline-flex items-center gap-2 text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-slate-900 dark:focus:ring-white focus:ring-offset-2 rounded-lg px-3 py-2"
                 aria-label="Sign in to existing account"
               >
-                Already have an account? 
+                Already have an account?
                 <span className="underline underline-offset-4 decoration-2 decoration-slate-400 hover:decoration-slate-900 dark:hover:decoration-white transition-colors">
                   Sign in
                 </span>
@@ -158,7 +158,7 @@ const Landing = () => {
 
           {/* OAuth buttons (placeholder - implement actual OAuth) */}
           <div className="grid grid-cols-2 gap-3">
-            <button 
+            <button
               className="flex items-center justify-center gap-2 px-4 py-3 bg-white dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 rounded-xl hover:border-slate-300 dark:hover:border-slate-600 hover:shadow-lg transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-slate-900/20 dark:focus:ring-white/20 group"
               aria-label="Continue with Google"
             >
@@ -170,8 +170,8 @@ const Landing = () => {
               </svg>
               <span className="text-sm font-medium text-slate-700 dark:text-slate-300">Google</span>
             </button>
-            
-            <button 
+
+            <button
               className="flex items-center justify-center gap-2 px-4 py-3 bg-white dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 rounded-xl hover:border-slate-300 dark:hover:border-slate-600 hover:shadow-lg transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-slate-900/20 dark:focus:ring-white/20 group"
               aria-label="Continue with NTU SSO"
             >
@@ -182,7 +182,7 @@ const Landing = () => {
             </button>
           </div>
         </div>
-        
+
         {/* Footer text */}
         <p className="mt-6 text-center text-xs text-slate-600 dark:text-slate-400">
           By continuing, you agree to our{' '}
@@ -203,17 +203,17 @@ const Landing = () => {
           33% { transform: translate(30px, -30px) rotate(120deg); }
           66% { transform: translate(-20px, 20px) rotate(240deg); }
         }
-        
+
         @keyframes float-delayed {
           0%, 100% { transform: translate(0, 0) rotate(0deg); }
           33% { transform: translate(-30px, 30px) rotate(-120deg); }
           66% { transform: translate(20px, -20px) rotate(-240deg); }
         }
-        
+
         .animate-float {
           animation: float 20s ease-in-out infinite;
         }
-        
+
         .animate-float-delayed {
           animation: float-delayed 25s ease-in-out infinite;
         }

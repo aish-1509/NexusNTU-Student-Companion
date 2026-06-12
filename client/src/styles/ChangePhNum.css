@@ -36,7 +36,7 @@ body, html {
   /* .logo-image{
 
   } */
-  
+
   /* The form container will act as the 'box' in the background */
   .form-container {
     height: 70vh;
@@ -49,14 +49,14 @@ body, html {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
 
-  
+
   /* Styling the heading */
   .form-heading {
     color: #333333; /* Dark color for the heading */ /* A larger font size for headings */
     margin-bottom: 24px; /* Space after the heading */
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
-  
+
   .bigger{
     font-size: 30px;
     margin-top: 1px;
@@ -79,7 +79,7 @@ body, html {
     margin-bottom: 24px; /* Space after the phone input field */
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
-  
+
   /* Button styling to match the Figma design */
 /* Save button */
 .save-button {
@@ -96,7 +96,7 @@ body, html {
   width: 100%;
   margin-top: 10px;
 }
-  
+
   .save-button:hover {
     background-color: #a00000; /* A slightly darker shade on hover */
   }
@@ -104,4 +104,3 @@ body, html {
 .page-container .form-control{
   width: inherit;
 }
-  

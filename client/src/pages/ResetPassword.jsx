@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import { HiArrowLeft, HiArrowRight, HiXCircle } from "react-icons/hi2";
@@ -7,14 +7,13 @@ import axios from "axios";
 import Logo from "../assets/crbologo.png";
 import { useUser } from "../contexts/UserContext";
 import { evaluatePasswordStrength } from "../utils/passwordUtils.js";
-import { 
-  GeometricBackground, 
-  GlassCard, 
-  PageContainer, 
-  Button, 
+import {
+  GeometricBackground,
+  GlassCard,
+  PageContainer,
+  Button,
   PageHeader,
-  THEMES,
-  customAnimations 
+  customAnimations
 } from '../components/SharedComponents';
 
 /**
@@ -23,17 +22,17 @@ import {
  */
 
 // Floating Label Input Component
-const FloatingInput = ({ 
-  id, 
-  name, 
-  type = "text", 
-  label, 
-  value, 
-  onChange, 
+const FloatingInput = ({
+  id,
+  name,
+  type = "text",
+  label,
+  value,
+  onChange,
   required = false,
   error = "",
   rightIcon = null,
-  ...props 
+  ...props
 }) => {
   const [isFocused, setIsFocused] = useState(false);
   const hasValue = value && value.length > 0;
@@ -54,8 +53,8 @@ const FloatingInput = ({
           border-2 rounded-xl
           transition-all duration-200
           focus:outline-none focus:ring-4
-          ${error 
-            ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20' 
+          ${error
+            ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20'
             : 'border-gray-200 dark:border-slate-700 focus:border-orange-500 dark:focus:border-orange-400 focus:ring-orange-500/20'
           }
           ${rightIcon ? 'pr-12' : 'pr-4'}
@@ -66,26 +65,26 @@ const FloatingInput = ({
         aria-describedby={error ? `${id}-error` : undefined}
         {...props}
       />
-      
+
       <label
         htmlFor={id}
         className={`
           absolute left-4 transition-all duration-200 pointer-events-none
-          ${isFocused || hasValue 
-            ? 'top-2 text-xs font-medium text-gray-600 dark:text-gray-400' 
+          ${isFocused || hasValue
+            ? 'top-2 text-xs font-medium text-gray-600 dark:text-gray-400'
             : 'top-4 text-base text-gray-500 dark:text-gray-400'
           }
         `}
       >
         {label} {required && <span className="text-red-500">*</span>}
       </label>
-      
+
       {rightIcon && (
         <div className="absolute right-4 top-1/2 -translate-y-1/2">
           {rightIcon}
         </div>
       )}
-      
+
       {error && (
         <p id={`${id}-error`} className="mt-1.5 text-sm text-red-600 dark:text-red-400 flex items-center gap-1" role="alert">
           <HiXCircle className="w-4 h-4 flex-shrink-0" />
@@ -100,21 +99,21 @@ const FloatingInput = ({
 const PasswordStrengthMeter = ({ password }) => {
   const calculateStrength = () => {
     if (!password) return { level: 0, label: '', color: '' };
-    
+
     const { level } = evaluatePasswordStrength(password);
     const strengthMap = {
       'Weak': { level: 1, label: 'Weak', color: 'bg-red-500' },
       'Medium': { level: 3, label: 'Good', color: 'bg-yellow-500' },
       'Strong': { level: 5, label: 'Strong', color: 'bg-green-500' }
     };
-    
+
     return strengthMap[level] || { level: 0, label: '', color: '' };
   };
-  
+
   const strength = calculateStrength();
-  
+
   if (!password) return null;
-  
+
   return (
     <div className="mt-2 space-y-1.5">
       <div className="flex gap-1">
@@ -183,7 +182,7 @@ const ResetPassword = ({ theme = 'warmOrange' }) => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/v1/update-password",
+        "/api/v1/update-password",
         { userId: userProfile._id, newPassword },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -217,7 +216,7 @@ const ResetPassword = ({ theme = 'warmOrange' }) => {
   return (
     <div className="min-h-screen flex items-center justify-center p-4 sm:p-6">
       <GeometricBackground theme={theme} />
-      
+
       <PageContainer maxWidth="max-w-[560px] md:max-w-[640px] xl:max-w-[720px]">
         <GlassCard theme={theme}>
           {/* Back Button */}
@@ -230,7 +229,7 @@ const ResetPassword = ({ theme = 'warmOrange' }) => {
             <span>Back</span>
           </button>
 
-          <PageHeader 
+          <PageHeader
             logo={Logo}
             title="Reset Password"
             subtitle="Please enter your new password"
@@ -289,7 +288,7 @@ const ResetPassword = ({ theme = 'warmOrange' }) => {
 
             {/* General Error Message */}
             {errors.general && (
-              <div 
+              <div
                 className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-3 text-sm text-red-700 dark:text-red-400"
                 role="alert"
                 aria-live="polite"

@@ -1,19 +1,18 @@
 //SecurityQ.jsx
-import React, { useState, useContext, useEffect } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { useNavigate, useLocation } from "react-router-dom";
 import { HiArrowLeft, HiArrowRight, HiShieldCheck, HiXCircle } from "react-icons/hi2";
 import { toast } from 'react-toastify';
 import axios from "axios";
-import Logo from '../assets/crbologo.png'; 
+import Logo from '../assets/crbologo.png';
 import { UserContext } from '../contexts/UserContext';
-import { 
-  GeometricBackground, 
-  GlassCard, 
-  PageContainer, 
-  Button, 
+import {
+  GeometricBackground,
+  GlassCard,
+  PageContainer,
+  Button,
   PageHeader,
-  THEMES,
-  customAnimations 
+  customAnimations
 } from '../components/SharedComponents';
 
 /**
@@ -22,16 +21,16 @@ import {
  */
 
 // Floating Label Input Component
-const FloatingInput = ({ 
-  id, 
-  name, 
-  type = "text", 
-  label, 
-  value, 
-  onChange, 
+const FloatingInput = ({
+  id,
+  name,
+  type = "text",
+  label,
+  value,
+  onChange,
   required = false,
   error = "",
-  ...props 
+  ...props
 }) => {
   const [isFocused, setIsFocused] = useState(false);
   const hasValue = value && value.length > 0;
@@ -52,8 +51,8 @@ const FloatingInput = ({
           border-2 rounded-xl
           transition-all duration-200
           focus:outline-none focus:ring-4
-          ${error 
-            ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20' 
+          ${error
+            ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20'
             : 'border-gray-200 dark:border-slate-700 focus:border-orange-500 dark:focus:border-orange-400 focus:ring-orange-500/20'
           }
         `}
@@ -63,20 +62,20 @@ const FloatingInput = ({
         aria-describedby={error ? `${id}-error` : undefined}
         {...props}
       />
-      
+
       <label
         htmlFor={id}
         className={`
           absolute left-4 transition-all duration-200 pointer-events-none
-          ${isFocused || hasValue 
-            ? 'top-2 text-xs font-medium text-gray-600 dark:text-gray-400' 
+          ${isFocused || hasValue
+            ? 'top-2 text-xs font-medium text-gray-600 dark:text-gray-400'
             : 'top-4 text-base text-gray-500 dark:text-gray-400'
           }
         `}
       >
         {label} {required && <span className="text-red-500">*</span>}
       </label>
-      
+
       {error && (
         <p id={`${id}-error`} className="mt-1.5 text-sm text-red-600 dark:text-red-400 flex items-center gap-1" role="alert">
           <HiXCircle className="w-4 h-4 flex-shrink-0" />
@@ -92,7 +91,6 @@ function SecurityQuestion({ theme = 'warmOrange' }) {
   const navigate = useNavigate();
   const location = useLocation();
   const [answer, setAnswer] = useState('');
-  const [securityqueskeyword, setKeyword] = useState('');
   const [question, setQ] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -102,9 +100,8 @@ function SecurityQuestion({ theme = 'warmOrange' }) {
   useEffect(() => {
     const fetchques = async () => {
       try {
-        const response = await axios.post("http://localhost:3000/api/v1/getq", { ph: ph });
-        setKeyword(response.data.msg);
-        
+        const response = await axios.post("/api/v1/getq", { ph: ph });
+
         switch (response.data.msg) {
           case 'firstPet':
             setQ("What was the first item you bought with your own money in Singapore?");
@@ -147,14 +144,14 @@ function SecurityQuestion({ theme = 'warmOrange' }) {
     setIsLoading(true);
 
     try {
-      const response = await axios.post("http://localhost:3000/api/v1/verifyanswer", { 
-        ph: ph, 
-        answer: answer 
+      const response = await axios.post("/api/v1/verifyanswer", {
+        ph: ph,
+        answer: answer
       });
-      
+
       if (response.data.correct) {
         try {
-          const tokenResponse = await axios.post("http://localhost:3000/api/v1/giveTokenUsingPh", { ph: ph });
+          const tokenResponse = await axios.post("/api/v1/giveTokenUsingPh", { ph: ph });
           updateToken(tokenResponse.data.token);
         } catch (error) {
           console.error(error);
@@ -180,7 +177,7 @@ function SecurityQuestion({ theme = 'warmOrange' }) {
   return (
     <div className="min-h-screen flex items-center justify-center p-4 sm:p-6">
       <GeometricBackground theme={theme} />
-      
+
       <PageContainer maxWidth="max-w-[560px] md:max-w-[640px] xl:max-w-[720px]">
         <GlassCard theme={theme}>
           {/* Back Button */}
@@ -193,7 +190,7 @@ function SecurityQuestion({ theme = 'warmOrange' }) {
             <span>Back</span>
           </button>
 
-          <PageHeader 
+          <PageHeader
             logo={Logo}
             title="Security Question"
             subtitle="Answer your security question to verify your identity"
