@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="480" viewBox="0 0 1400 480" role="img" aria-labelledby="title desc">
+  <title id="title">NexusNTU</title>
+  <desc id="desc">AI-enabled international student companion for NTU</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f97316"/>
+      <stop offset="0.48" stop-color="#ec4899"/>
+      <stop offset="1" stop-color="#6d28d9"/>
+    </linearGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0.08"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="18" stdDeviation="24" flood-color="#2e1065" flood-opacity="0.28"/>
+    </filter>
+  </defs>
+
+  <rect width="1400" height="480" rx="34" fill="url(#background)"/>
+  <circle cx="120" cy="60" r="180" fill="#ffffff" opacity="0.08"/>
+  <circle cx="1320" cy="430" r="250" fill="#ffffff" opacity="0.07"/>
+  <path d="M990 0L1400 0L1400 310Z" fill="#ffffff" opacity="0.06"/>
+
+  <g transform="translate(82 70)" filter="url(#shadow)">
+    <rect width="1236" height="340" rx="30" fill="url(#glass)" stroke="#ffffff" stroke-opacity="0.28"/>
+  </g>
+
+  <g transform="translate(142 130)">
+    <circle cx="72" cy="72" r="62" fill="#ffffff" opacity="0.94"/>
+    <g transform="translate(72 72)">
+      <path d="M0-49L17-16L49 0L17 16L0 49L-17 16L-49 0L-17-16Z" fill="#f97316"/>
+      <circle r="17" fill="#ec4899"/>
+    </g>
+  </g>
+
+  <text x="286" y="196" fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="76" font-weight="800" letter-spacing="-2">NexusNTU</text>
+  <text x="289" y="246" fill="#ffffff" opacity="0.92" font-family="Inter, Arial, sans-serif" font-size="25" font-weight="500">
+    AI-enabled international student companion
+  </text>
+
+  <g font-family="Inter, Arial, sans-serif" font-size="18" font-weight="650" fill="#ffffff">
+    <g transform="translate(290 302)">
+      <rect width="150" height="50" rx="25" fill="#ffffff" opacity="0.16"/>
+      <text x="75" y="31" text-anchor="middle">Navigate</text>
+    </g>
+    <g transform="translate(458 302)">
+      <rect width="150" height="50" rx="25" fill="#ffffff" opacity="0.16"/>
+      <text x="75" y="31" text-anchor="middle">Discover</text>
+    </g>
+    <g transform="translate(626 302)">
+      <rect width="150" height="50" rx="25" fill="#ffffff" opacity="0.16"/>
+      <text x="75" y="31" text-anchor="middle">Connect</text>
+    </g>
+    <g transform="translate(794 302)">
+      <rect width="150" height="50" rx="25" fill="#ffffff" opacity="0.16"/>
+      <text x="75" y="31" text-anchor="middle">Settle in</text>
+    </g>
+  </g>
+
+  <g transform="translate(1060 146)" stroke="#ffffff" stroke-width="4" fill="none" opacity="0.85">
+    <circle cx="80" cy="20" r="12" fill="#ffffff"/>
+    <circle cx="20" cy="92" r="12" fill="#ffffff"/>
+    <circle cx="140" cy="92" r="12" fill="#ffffff"/>
+    <circle cx="80" cy="164" r="12" fill="#ffffff"/>
+    <path d="M73 30L28 82M87 30L132 82M31 101L69 154M129 101L91 154M32 92H128"/>
+  </g>
+</svg>

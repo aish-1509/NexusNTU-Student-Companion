@@ -1,0 +1,31 @@
+.DS_Store
+Thumbs.db
+
+# Local credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+.streamlit/secrets.toml
+
+# Dependencies and build output
+node_modules/
+dist/
+build/
+coverage/
+.vite/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Logs and editor files
+*.log
+.idea/
+.vscode/
+
+# Material retained locally but intentionally excluded from the public portfolio
+private/

@@ -1,0 +1,106 @@
+/* Base styles */
+body, html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #faf3e0;
+  background-image: url('../assets/bgd.png'); /* Ensure this path is correct */
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 500px;
+  min-height: 80vh;
+  padding: 30px 25px;
+  background-color: #faf3e0; /* Softer warm background */
+  border-radius: 20px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+  border: 1px solid #eaeaea;
+  box-sizing: border-box;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+  .logo{
+    margin-top: 10px;
+  }
+  /* .logo-image{
+
+  } */
+
+  /* The form container will act as the 'box' in the background */
+  .form-container {
+    height: 70vh;
+    background-color: #faf3e0; /* A white background for the box */
+    padding: 40px;
+    border-radius: 8px; /* Rounded corners are common in modern design */
+    width: 500px;
+    display: block;
+    margin-top: 10px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+
+  /* Styling the heading */
+  .form-heading {
+    color: #333333; /* Dark color for the heading */ /* A larger font size for headings */
+    margin-bottom: 24px; /* Space after the heading */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  .bigger{
+    font-size: 30px;
+    margin-top: 1px;
+  }
+
+  .smaller{
+    font-size: 20px;
+  }
+
+  .registered-number-label{
+    font-weight: bold;
+    margin-top: 10px;
+    font-size: 20px;
+    color: #333333;
+  }
+  /* Styles for the phone input field, using a class provided by 'react-phone-input-2' */
+  .phone-input {
+    width: 100%; /* Full width of the container */
+    margin-top: 10px;
+    margin-bottom: 24px; /* Space after the phone input field */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  /* Button styling to match the Figma design */
+/* Save button */
+.save-button {
+  background-color: #cc0000;
+  color: white;
+  border: none;
+  padding: 14px 20px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+  margin-top: 10px;
+}
+
+  .save-button:hover {
+    background-color: #a00000; /* A slightly darker shade on hover */
+  }
+
+.page-container .form-control{
+  width: inherit;
+}

@@ -1,0 +1,17 @@
+{
+  "name": "nexusntu",
+  "version": "1.0.0",
+  "private": true,
+  "description": "An AI-enabled digital companion for international students at NTU.",
+  "scripts": {
+    "install:all": "npm ci --prefix server && npm ci --prefix client",
+    "dev:server": "npm run dev --prefix server",
+    "dev:client": "npm run dev --prefix client",
+    "build": "npm run build --prefix client",
+    "lint": "npm run lint --prefix client",
+    "check": "npm run build && npm run lint"
+  },
+  "engines": {
+    "node": ">=22.12"
+  }
+}

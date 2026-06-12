@@ -1,0 +1,108 @@
+.dashboard-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 800px;
+  height: 900px;
+  background-color: #faf3e0;
+  border-radius: 15px;
+}
+
+.header-container {
+  position: relative;
+  width: 760px; /* 800px - 40px padding (20px each side) */
+  MIN-height: 80px;
+  display: flex;
+  justify-content: center; /* logo centered */
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.logo-container {
+  position: absolute;
+  left: 50%; /* 50% of 760px */
+  transform: translateX(-50%);
+}
+
+.logo-image {
+  height: 70px;
+  padding: 5px;
+  object-fit: contain;
+}
+
+.profile-picture-wrapper {
+  position: absolute;
+  right: 0px; /* changed from 30px to 0px to keep it in bounds */
+  cursor: pointer;
+  z-index: 2;
+  width: 44px;           /* 40px image + 2px padding on each side */
+  height: 44px;
+  border: 2px solid black; /* black border */
+  border-radius: 50%;      /* circular border */
+  padding: 2px;            /* space between image and border */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.profile-picture {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profile-picture-wrapper:hover {
+  border-color: #f7b00b; /* changes border to golden on hover */
+  transform: scale(1.1); /* slightly enlarge */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2); /* subtle shadow */
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 columns layout */
+  row-gap: 25px;    /* vertical spacing between rows */
+  column-gap: 20px; /* horizontal spacing between buttons */
+  padding: 0 20px;
+  justify-items: center; /* center buttons in each column */
+  width: 760px; /* 800px - 40px padding */
+  margin-top: 40px;
+}
+
+.dashboard-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center; /* center text under button */
+}
+
+.dashboard-box .icon-button {
+  width: 120px;
+  height: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  background-color: #f6c90e;
+  border-width: 0px;
+  transition: all 0.2s ease;
+}
+
+.dashboard-box .icon-button img {
+  width: 70px;
+  height: 70px;
+}
+
+.dashboard-box span {
+  margin-top: 8px;  /* distance between icon and text */
+  font-size: 0.9rem;
+  font-weight: 500;
+  white-space: nowrap; /* prevent text wrapping */
+}
+
+.dashboard-box .icon-button:hover {
+  background-color: #f7b00b;
+}
